@@ -104,6 +104,22 @@ public class ServicoController {
 		
 	}
 	
+	// método delete para excluir um registro da tabela
+	@DeleteMapping("/servico/{idServico}")
+	public ResponseEntity<Void> deletarUmServico(@PathVariable Integer idServico){
+		servicoService.deletarUmServico(idServico);
+		return ResponseEntity.noContent().build();
+	}
+
+
+	// método put para editar um registro da tabela
+	@PutMapping("/servico/{idServico}/{idFuncionario}")
+	public ResponseEntity<Void> editarFuncionario(@PathVariable Integer idServico, @PathVariable Integer idFuncionario, @RequestBody Servico servico){
+		servico.setIdServico(idServico);
+		servico = servicoService.editarServico(servico,idFuncionario);
+		return ResponseEntity.noContent().build();
+	}
+	
 }
 
 

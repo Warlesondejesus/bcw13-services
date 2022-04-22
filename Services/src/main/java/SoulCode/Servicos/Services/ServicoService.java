@@ -92,5 +92,19 @@ public class ServicoService {
 		return servicoRepository.save(servico);
 	}
 	
+	// deleteById - excluir um serviço pela sua chave primaria
+		public void deletarUmServico(Integer idServico) {
+			servicoRepository.deleteById(idServico);
+	}
+			
+	// editar os dados de um serviço
+	public Servico editarServico(Servico servico, Integer idFuncionario) {
+		mostrarUmServico(servico.getIdServico());
+		Funcionario funcionario = funcionarioRepository.getById(idFuncionario);
+		servico.setFuncionario(funcionario);
+		return servicoRepository.save(servico);
+	}
+
+	
 	
 }
