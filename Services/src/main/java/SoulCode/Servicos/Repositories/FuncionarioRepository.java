@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import SoulCode.Servicos.Models.Funcionario;
 
 @Repository
-public interface FuncionarioRepository extends JpaRepository<Funcionario,Integer>{
+public interface FuncionarioRepository extends JpaRepository<Funcionario,Integer> {
 	
 	
 
