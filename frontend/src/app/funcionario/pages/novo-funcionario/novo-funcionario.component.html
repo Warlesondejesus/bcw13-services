@@ -1,6 +1,6 @@
 <div class="flex-container">
   <mat-card>
-    <form action="" id="main-form" [formGroup]="funcionario">
+    <form action="" id="main-form" [formGroup]="funcionario" (ngSubmit)="submit()">
       <mat-form-field appearance="outline">
         <mat-label>Nome do Funcionário</mat-label>
         <input type="text" matInput formControlName="nome">

@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FuncionarioHttpService } from '../../services/funcionario-http.service';
 
 @Component({
   selector: 'app-novo-funcionario',
@@ -18,7 +19,8 @@ export class NovoFuncionarioComponent implements OnInit {
   })
 
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private funHttpService: FuncionarioHttpService
   ) { }
 
   ngOnInit(): void {
@@ -26,5 +28,9 @@ export class NovoFuncionarioComponent implements OnInit {
 
   selectImage(): void {
     this.fileInput.nativeElement.click()
+  }
+
+  submit(): void {
+    const funcionario = this.funcionario.value
   }
 }
