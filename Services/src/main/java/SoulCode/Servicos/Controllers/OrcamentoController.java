@@ -6,9 +6,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -52,4 +54,31 @@ public class OrcamentoController {
 				.buildAndExpand(orcamento.getIdOrcamento()).toUri();
 		return ResponseEntity.created(uriNova).build();
 		}
+	
+	@PostMapping("/orcamentoQuitacao/{idOrcamento}")
+	public ResponseEntity<Void> quitarOrcamento(@PathVariable Integer idOrcamento){
+		orcamentoService.quitarOrcamento(idOrcamento);
+		return ResponseEntity.noContent().build();
+	}
+	@DeleteMapping("/orcamento/{idOrcamento}")
+	public ResponseEntity<Void> excluirOrcamento(@PathVariable Integer idOrcamento){
+		orcamentoService.excluirOrcamento(idOrcamento);
+		return ResponseEntity.noContent().build();
+	}
+	
+	@PutMapping("orcamento/{idOrcamento}")
+	public ResponseEntity<Orcamento> editarOrcamento(@PathVariable Integer idOrcamento, @RequestBody Orcamento orcamento){
+		orcamento.setIdOrcamento(idOrcamento);
+		orcamentoService.editarOrcamento(orcamento, idOrcamento);
+		return ResponseEntity.ok().body(orcamento);
+	}
 }
+
+
+
+
+
+
+
+
+
