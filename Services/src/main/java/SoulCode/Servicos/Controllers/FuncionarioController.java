@@ -63,5 +63,4 @@ public class FuncionarioController {
 		funcionarioService.excluirFuncionario(idFuncionario);
 		return ResponseEntity.noContent().build();
 	}
-	
 }
