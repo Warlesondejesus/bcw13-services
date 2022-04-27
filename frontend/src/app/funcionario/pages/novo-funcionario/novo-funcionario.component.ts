@@ -15,7 +15,7 @@ export class NovoFuncionarioComponent implements OnInit {
   funcionario: FormGroup = this.fb.group({
     nome: ['', [ Validators.required ]],
     email: ['', [ Validators.required, Validators.email ]],
-    foto: ['', [ Validators.required ]]
+    foto: ['']
   })
 
   constructor(
