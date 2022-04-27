@@ -1,5 +1,8 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { FuncionarioHttpService } from '../../services/funcionario-http.service';
 
 @Component({
@@ -20,7 +23,9 @@ export class NovoFuncionarioComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private funHttpService: FuncionarioHttpService
+    private funHttpService: FuncionarioHttpService,
+    private snackbar: MatSnackBar,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -32,5 +37,25 @@ export class NovoFuncionarioComponent implements OnInit {
 
   submit(): void {
     const funcionario = this.funcionario.value
+
+    this.funHttpService
+    .createFuncionario(funcionario)
+    .subscribe(
+      () => {
+        this.snackbar.open('Funcionário salvo!', 'Ok', {
+          duration: 3000,
+          horizontalPosition: 'left',
+          verticalPosition: 'top'
+        })
+        this.router.navigateByUrl('/funcionario')
+      },
+      (e: HttpErrorResponse) => {
+        this.snackbar.open(`Ocorreu um erro no salvamento! (Erro ${e.status})`, 'Ok', {
+          duration: 3000,
+          horizontalPosition: 'left',
+          verticalPosition: 'top'
+        })
+      }
+    )
   }
 }
