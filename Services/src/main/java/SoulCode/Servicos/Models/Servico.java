@@ -120,10 +120,6 @@ public class Servico {
 	}
 
 
-<<<<<<< HEAD
-=======
-
->>>>>>> a52e7bda694f92c3d1ee2fe94bd84eac4c611389
 	public void setOrcamento(Orcamento orcamento) {
 		this.orcamento = orcamento;
 	}
