@@ -42,7 +42,7 @@ public class FuncionarioController {
 	}
 	
 	@PostMapping("/funcionario")
-	public ResponseEntity<Funcionario> inserirFuncionario(@RequestBody Funcionario funcionario){
+	public ResponseEntity<Funcionario> inserirFuncionario(@RequestBody Funcionario funcionario) {
 		// nessa linha 44, o novo funcionário já é salvo no banco de dados e já é criado o seu id
 		funcionario = funcionarioService.inserirFuncionario(funcionario);
 
