@@ -53,10 +53,6 @@ public class Servico {
 	@JoinColumn(name = "id_orcamento", unique = true)
 	private Orcamento orcamento;
 
-	@OneToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name = "id_orcamento", unique = true)
-	private Orcamento orcamento;
-
 	public Integer getIdServico() {
 		return idServico;
 	}
@@ -120,23 +116,10 @@ public class Servico {
 		return orcamento;
 	}
 
-<<<<<<< HEAD
-	public Orcamento getOrcamento() {
-		return orcamento;
-	}
 
 
 	public void setOrcamento(Orcamento orcamento) {
 		this.orcamento = orcamento;
 	}
 
-	
-	
-
-	
-=======
-	public void setOrcamento(Orcamento orcamento) {
-		this.orcamento = orcamento;
-	}
->>>>>>> 5fe63ec88ce1db80ffe622d03279b4171b15ccb1
 }

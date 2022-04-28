@@ -22,23 +22,22 @@ public class UploadFileController {
 	FuncionarioService funcionarioService;
 	
 	@PostMapping("/funcionario/envioFoto/{idFuncionario}")
-	public ResponseEntity<String> enviarDados(@PathVariable Integer idFuncionario,
-			MultipartFile foto, @RequestParam("nome") String nome){
+	public ResponseEntity<Void> enviarDados(@PathVariable Integer idFuncionario, MultipartFile foto, @RequestParam("nome") String nome) {
 		String fileName = nome;
-		String uploadDir = "/home/tatiana/cursoJava/frontEscola/src/assets/imagens";
-		String nomeMaisCaminho = "assets/imagens/" + nome;
+		String uploadDir = "/home/renato3x/Documents/apps/bcw13-services/frontend/src/assets/funcionarios";
+		String nomeMaisCaminho = "/assets/funcionarios/" + nome;
 		
 		funcionarioService.salvarFoto(idFuncionario, nomeMaisCaminho);
 		
 		try {
 			UploadFile.salvarArquivo(uploadDir, fileName, foto);
-		} catch (Exception e){
+		} catch (Exception e) {
 			System.out.println("O arquivo não foi enviado: " + e);
 		}
-		System.out.println("Arquivo enviado: " + nomeMaisCaminho);
-		return ResponseEntity.ok("Arquivo enviado!");
-	} 
 
+		System.out.println("Arquivo enviado: " + nomeMaisCaminho);
+		return ResponseEntity.ok().build();
+	}
 }
 
 
