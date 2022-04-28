@@ -47,7 +47,7 @@ public class FuncionarioController {
 		funcionario = funcionarioService.inserirFuncionario(funcionario);
 		URI novaUri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(funcionario.getIdFuncionario()).toUri();
-		return ResponseEntity.created(novaUri).build();
+		return ResponseEntity.created(novaUri).body(funcionario);
 	}
 	
 	@PutMapping("/funcionario/{idFuncionario}")
@@ -63,5 +63,4 @@ public class FuncionarioController {
 		funcionarioService.excluirFuncionario(idFuncionario);
 		return ResponseEntity.noContent().build();
 	}
-	
 }

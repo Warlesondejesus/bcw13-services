@@ -53,6 +53,8 @@ public class Servico {
 	@JoinColumn(name = "id_orcamento", unique = true)
 	private Orcamento orcamento;
 
+	
+
 	public Integer getIdServico() {
 		return idServico;
 	}
@@ -112,7 +114,7 @@ public class Servico {
 		this.funcionario = funcionario;
 	}
 
-
+	
 	public Orcamento getOrcamento() {
 		return orcamento;
 	}
@@ -122,8 +124,4 @@ public class Servico {
 		this.orcamento = orcamento;
 	}
 
-	
-	
-
-	
 }
