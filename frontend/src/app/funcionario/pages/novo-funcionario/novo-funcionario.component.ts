@@ -21,6 +21,8 @@ export class NovoFuncionarioComponent implements OnInit {
     foto: ['']
   })
 
+  foto!: File
+
   constructor(
     private fb: FormBuilder,
     private funHttpService: FuncionarioHttpService,
@@ -57,5 +59,9 @@ export class NovoFuncionarioComponent implements OnInit {
         })
       }
     )
+  }
+
+  fileChange(event: any) {
+    this.foto = event.target.files[0]
   }
 }

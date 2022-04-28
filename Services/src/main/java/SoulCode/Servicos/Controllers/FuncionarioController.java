@@ -21,7 +21,7 @@ import SoulCode.Servicos.Models.Funcionario;
 import SoulCode.Servicos.Services.FuncionarioService;
 
 
-@CrossOrigin 
+@CrossOrigin
 @RestController 
 @RequestMapping("servicos")
 public class FuncionarioController {
@@ -45,14 +45,17 @@ public class FuncionarioController {
 	public ResponseEntity<Funcionario> inserirFuncionario(@RequestBody Funcionario funcionario){
 		// nessa linha 44, o novo funcionário já é salvo no banco de dados e já é criado o seu id
 		funcionario = funcionarioService.inserirFuncionario(funcionario);
+<<<<<<< HEAD
 		URI novaUri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(funcionario.getIdFuncionario()).toUri();
+=======
+		URI novaUri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(funcionario.getIdFuncionario()).toUri();
+>>>>>>> a52e7bda694f92c3d1ee2fe94bd84eac4c611389
 		return ResponseEntity.created(novaUri).body(funcionario);
 	}
 	
 	@PutMapping("/funcionario/{idFuncionario}")
-	public ResponseEntity<Funcionario> editarFuncionario(@PathVariable Integer idFuncionario,
-										@RequestBody Funcionario funcionario){
+	public ResponseEntity<Funcionario> editarFuncionario(@PathVariable Integer idFuncionario, @RequestBody Funcionario funcionario) {
 		funcionario.setIdFuncionario(idFuncionario);
 		funcionario = funcionarioService.editarFuncionario(funcionario);
 		return ResponseEntity.noContent().build();
