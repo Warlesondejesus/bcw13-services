@@ -12,17 +12,22 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 
+
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
+	
 	@Autowired
-	private ImplementsDetailsService userDetailsService;
+	private ImplementsUserDetailsService userDetailsService;
+	
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{
 		http.csrf().disable().authorizeRequests()
 		.antMatchers(HttpMethod.GET, "/").permitAll()
+		.antMatchers(HttpMethod.GET, "/servicos/funcionario**/**").hasRole("USER")
+		.antMatchers(HttpMethod.GET, "/servicos/servico**/**").hasRole("ADMIN")
 		.anyRequest().authenticated()
 		.and()
 		.formLogin().permitAll()
@@ -30,22 +35,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
 	}
 	
-	
-
 	@Override
-	public void configure(WebSecurity web) throws Exception{
-		web.ignoring().antMatchers("/style/**");
-	}
-	
-	@Override
-	protected void configure(AuthenticationManagerBuilder auth)  throws Exception{
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception{
 		auth.userDetailsService(userDetailsService)
 		.passwordEncoder(new BCryptPasswordEncoder());
 	}
-	
+
+	@Override
+	public void configure(WebSecurity web) throws Exception{
+		web.ignoring().antMatchers("/materialize/**", "/style/**");
+	}
+
 }
-
-
-
-
-

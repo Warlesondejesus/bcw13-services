@@ -1,18 +1,21 @@
 package SoulCode.Servicos.Models;
-
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-@Entity
-public class Usuario implements UserDetails{
-	
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
+@Entity
+public class Usuario  implements UserDetails{
+	
 	@Id
 	private String login;
 	
@@ -43,10 +46,19 @@ public class Usuario implements UserDetails{
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
+	
+	
+	@ManyToMany
+	@JoinTable(name = "usuarios_roles", joinColumns = @JoinColumn(
+	         name = "usuario_id", referencedColumnName = "login"), 
+	       inverseJoinColumns = @JoinColumn(
+	          name = "role_id", referencedColumnName = "nomeRole")) 
+    private List<Role> roles;
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return new ArrayList<>();
+		//return new ArrayList<>();
+		return (Collection<? extends GrantedAuthority>) this.roles;
 	}
 
 	@Override
@@ -61,23 +73,28 @@ public class Usuario implements UserDetails{
 
 	@Override
 	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
 		return true;
 	}
 
 	@Override
 	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
 		return true;
 	}
 
 	@Override
 	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
 		return true;
 	}
 
 	@Override
 	public boolean isEnabled() {
+		// TODO Auto-generated method stub
 		return true;
 	}
+	
 	
 	
 
