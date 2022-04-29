@@ -1,13 +1,11 @@
 package SoulCode.Servicos.Repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.repository.CrudRepository;
 
 import SoulCode.Servicos.Models.Usuario;
 
-@Repository
-public interface UsuarioRepository extends JpaRepository<Usuario,String>{
-	
-	Usuario findByLogin(String login);
+public interface UsuarioRepository extends CrudRepository<Usuario, String>{
 
+	Usuario findByLogin(String login);
 }
