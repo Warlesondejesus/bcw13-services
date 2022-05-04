@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Funcionario } from '../models/funcionario';
@@ -30,5 +30,9 @@ export class FuncionarioHttpService {
 
   addFoto(id: number, data: FormData, filename: string): Observable<void> {
     return this.http.post<void>(`${this.baseURL}/envioFoto/${id}?nome=${filename}`, data)
+  }
+
+  updateFuncionario(funcionario: Funcionario): Observable<Funcionario> {
+    return this.http.put<Funcionario>(`${this.baseURL}/${funcionario.idFuncionario}`, funcionario)
   }
 }

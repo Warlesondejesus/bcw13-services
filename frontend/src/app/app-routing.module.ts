@@ -11,6 +11,10 @@ const routes: Routes = [
         return m.FuncionarioModule
       })
     }
+  },
+  {
+    path: 'auth',
+    loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
   }
 ]
 

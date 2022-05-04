@@ -1,9 +1,12 @@
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
-import { Funcionario } from '../../models/funcionario';
+import { Router, UrlTree } from '@angular/router';
+import { Observable } from 'rxjs';
+import { ConfirmExitDialogComponent } from '../../components/confirm-exit-dialog/confirm-exit-dialog.component';
+import { CanDeactivate } from '../../models/canDeactivate';
 import { FuncionarioHttpService } from '../../services/funcionario-http.service';
 
 @Component({
@@ -11,7 +14,7 @@ import { FuncionarioHttpService } from '../../services/funcionario-http.service'
   templateUrl: './novo-funcionario.component.html',
   styleUrls: ['./novo-funcionario.component.css']
 })
-export class NovoFuncionarioComponent implements OnInit {
+export class NovoFuncionarioComponent implements OnInit, CanDeactivate {
 
   @ViewChild('fileInput')
   fileInput!: ElementRef
@@ -28,8 +31,20 @@ export class NovoFuncionarioComponent implements OnInit {
     private fb: FormBuilder,
     private funHttpService: FuncionarioHttpService,
     private snackbar: MatSnackBar,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) { }
+
+  canDeactivate(): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
+    if (this.funcionario.dirty) {
+      const ref = this.dialog.open(ConfirmExitDialogComponent)
+
+      return ref.afterClosed()
+    }
+
+    return true
+  }
+
 
   ngOnInit(): void {
   }
@@ -56,6 +71,7 @@ export class NovoFuncionarioComponent implements OnInit {
           this.funHttpService.addFoto(fun.idFuncionario || 0, formData, filename)
           .subscribe(
             () => {
+              this.funcionario.reset()
               this.showSuccessMessageAndRedirect()
             },
             (e: HttpErrorResponse) => {
@@ -63,6 +79,7 @@ export class NovoFuncionarioComponent implements OnInit {
             }
           )
         } else {
+          this.funcionario.reset()
           this.showSuccessMessageAndRedirect()
         }
       },
@@ -74,8 +91,6 @@ export class NovoFuncionarioComponent implements OnInit {
 
   fileChange(event: any) {
     this.foto = event.target.files[0]
-    console.log(this.foto)
-    console.log(this.foto.type.split('/')[1])
   }
 
   showSuccessMessageAndRedirect(): void {
