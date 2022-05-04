@@ -18,16 +18,29 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	
-	@Autowired
-	private ImplementsUserDetailsService userDetailsService;
+@Autowired
+private ImplementsUserDetailsService userDetailsService;
 	
+private static final String[] PUBLIC_ENDPOINTS_ADMIN = {
+	            "/servicos**/**",
+	           "/servicos/orcamento**/**"
+};
+
+private static final String[] PUBLIC_ENDPOINTS_USER = {
+	            "/servicos/funcionario**/**",
+	            "/servicos/servico**/**"
+};
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{
 		http.csrf().disable().authorizeRequests()
-		.antMatchers(HttpMethod.GET, "/").permitAll()
-		.antMatchers(HttpMethod.GET, "/servicos/funcionario**/**").hasRole("USER")
-		.antMatchers(HttpMethod.GET, "/servicos/servico**/**").hasRole("ADMIN")
+		//.antMatchers(HttpMethod.GET, "/").permitAll()
+		//.antMatchers(HttpMethod.GET, PUBLIC_ENDPOINTS_USER).hasAnyRole("USER","ADMIN")
+		//.antMatchers(HttpMethod.GET, PUBLIC_ENDPOINTS_ADMIN).hasRole("ADMIN")
+       
+		.antMatchers(HttpMethod.GET, "/servicos**/**").permitAll()
+		.antMatchers(HttpMethod.POST, "/servicos**/**").permitAll()
+		
 		.anyRequest().authenticated()
 		.and()
 		.formLogin().permitAll()
