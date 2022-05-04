@@ -5,11 +5,13 @@ import java.util.Optional;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Component;
 
 import SoulCode.Servicos.Data.DetalheUsuarioData;
 import SoulCode.Servicos.Models.UsuarioJWT;
 import SoulCode.Servicos.Repositories.UsuarioJWTRepository;
 
+@Component
 public class DetalheUsuarioServiceImpl implements UserDetailsService{
 	
 	private final UsuarioJWTRepository usuarioJWTRepository;
