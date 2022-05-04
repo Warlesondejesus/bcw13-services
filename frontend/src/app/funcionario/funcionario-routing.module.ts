@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ConfirmExitGuard } from './guards/confirm-exit.guard';
 import { IsNumberGuard } from './guards/is-number.guard';
 import { EditFuncionarioComponent } from './pages/edit-funcionario/edit-funcionario.component';
 import { FuncionarioComponent } from './pages/funcionario/funcionario.component';
@@ -9,7 +10,10 @@ import { NovoFuncionarioComponent } from './pages/novo-funcionario/novo-funciona
 const routes: Routes = [
   {
     path: 'novo-funcionario',
-    component: NovoFuncionarioComponent
+    component: NovoFuncionarioComponent,
+    canDeactivate: [
+      ConfirmExitGuard
+    ]
   },
   {
     path: '',
@@ -25,7 +29,10 @@ const routes: Routes = [
   },
   {
     path: 'edit/:idFuncionario',
-    component: EditFuncionarioComponent
+    component: EditFuncionarioComponent,
+    canDeactivate: [
+      ConfirmExitGuard
+    ]
   }
 ]
 

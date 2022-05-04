@@ -1,6 +1,11 @@
-<div class="flex-container">
+<div class="flex-container" *ngIf="funcionario != undefined">
+  <button mat-mini-fab color="primary" routerLink="/funcionario">
+    <mat-icon>
+      arrow_back
+    </mat-icon>
+  </button>
   <mat-card>
-    <img [src]="funcionario.foto" alt="" mat-card-image class="fun-img">
+    <img [src]="funcionario.foto == null ? '/assets/no_profile.webp' : funcionario.foto " alt="" mat-card-image class="fun-img">
     <mat-card-content>
       <mat-card-title>
         {{ funcionario.nome }}
