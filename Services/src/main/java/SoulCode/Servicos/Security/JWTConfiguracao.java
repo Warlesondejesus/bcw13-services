@@ -15,6 +15,8 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import SoulCode.Servicos.Services.DetalheUsuarioServiceImpl;
 
+import java.util.List;
+
 @EnableWebSecurity
 public class JWTConfiguracao  extends WebSecurityConfigurerAdapter{
 	
@@ -49,15 +51,18 @@ public class JWTConfiguracao  extends WebSecurityConfigurerAdapter{
 	}
 	
 	@Bean
-    CorsConfigurationSource corsConfigurationSource() {
-        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        CorsConfiguration corsConfiguration = new CorsConfiguration().applyPermitDefaultValues();
-        source.registerCorsConfiguration("/**", corsConfiguration);
-        return source;
-    }
-	
-	
-
+	CorsConfigurationSource corsConfigurationSource() {
+		CorsConfiguration configuration = new CorsConfiguration();
+		configuration.setAllowedMethods(List.of(
+				HttpMethod.GET.name(),
+				HttpMethod.PUT.name(),
+				HttpMethod.POST.name(),
+				HttpMethod.DELETE.name()
+		));
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", configuration.applyPermitDefaultValues());
+		return source;
+	}
 }
 
 

@@ -66,7 +66,7 @@ public class JWTAutenticarFilter  extends UsernamePasswordAuthenticationFilter{
 				.sign(Algorithm.HMAC512(TOKEN_SENHA));
 		
 		response.setHeader("Access-Control-Allow-Origin","*");
-        response.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, PATCH, DELETE");
+		response.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, PATCH, DELETE");
         response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         response.getWriter().write("{\"Authorization\": \"" + token + "\"}");
         response.getWriter().flush();

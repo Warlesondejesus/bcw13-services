@@ -33,7 +33,6 @@ import { EditFuncionarioComponent } from './pages/edit-funcionario/edit-funciona
     ReactiveFormsModule
   ],
   providers: [
-    FuncionarioHttpService,
     IsNumberGuard,
     ConfirmExitGuard
   ]
